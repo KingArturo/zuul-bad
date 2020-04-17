@@ -14,12 +14,12 @@
  */
 public class Room 
 {
-    public String description;
-    public Room northExit;
-    public Room southExit;
-    public Room eastExit;
-    public Room westExit;
-    public Room southEastExit;
+    private String description;
+    private Room northExit;
+    private Room southExit;
+    private Room eastExit;
+    private Room westExit;
+    private Room southEastExit;
 
     /**
      * Create a room described "description". Initially, it has
@@ -63,4 +63,52 @@ public class Room
         return description;
     }
 
+    /**
+    * Devuelve la sala vecina a la actual que esta ubicada en la direccion indicada como parametro.
+    *
+    * @param salida Un String indicando la direccion por la que saldriamos de la sala actual
+    * @return La sala ubicada en la direccion especificada o null si no hay ninguna salida en esa direccion
+    */
+    public Room getExit(String salida) {
+        Room nextRoom = null;
+        if(salida.equals("north")) {
+            nextRoom = northExit;
+        }
+        if(salida.equals("east")) {
+            nextRoom = eastExit;
+        }
+        if(salida.equals("south")) {
+            nextRoom = southExit;
+        }
+        if(salida.equals("west")) {
+            nextRoom = westExit;
+        }
+        if(salida.equals("south-west")) {
+            nextRoom = southEastExit;
+        }
+    
+        return nextRoom;
+    }
+
+    /**
+    * Devuelve la información de las salidas existentes
+    * Por ejemplo: "Exits: north east west" o "Exits: south" 
+    * o "Exits: " si no hay salidas disponibles
+    *
+    * @return Una descripción de las salidas existentes.
+    */
+    public String getExitString(){
+        String salidas = "Exits: ";
+        if(northExit != null)
+            salidas += "Norte ";
+        if(eastExit != null)
+            salidas += "Este ";
+        if(southExit != null)
+            salidas += "Sur ";
+        if(westExit != null)
+            salidas += "Oeste ";
+        if(southEastExit != null)
+            salidas += "Sur-Este";
+        return salidas;
+    }
 }
