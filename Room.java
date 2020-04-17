@@ -83,7 +83,7 @@ public class Room
         if(salida.equals("west")) {
             nextRoom = westExit;
         }
-        if(salida.equals("south-west")) {
+        if(salida.equals("south-east")) {
             nextRoom = southEastExit;
         }
     
@@ -108,7 +108,25 @@ public class Room
         if(westExit != null)
             salidas += "Oeste ";
         if(southEastExit != null)
-            salidas += "Sur-Este";
+            salidas += "Sur-Oeste";
         return salidas;
+    }
+    /**
+    * Define una salida para esta sala
+    * 
+    * @param direccion La direccion de la salida (por ejemplo "north" o "southEast")
+    * @param sala La sala que se encuentra en la direccion indicada
+    */
+    public void setExit(String direccion, Room sala) {
+        if(direccion.equals("north"))
+            northExit=sala;
+        if(direccion.equals("east"))
+            eastExit = sala;
+        if(direccion.equals("south"))
+            southExit = sala;
+        if(direccion.equals("west"))
+            westExit = sala;
+        if(direccion.equals("south-east"))
+            southEastExit = sala;
     }
 }
