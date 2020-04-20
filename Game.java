@@ -34,7 +34,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room entrada, pasillo, habitacion1, bano, salonComedor, cocina, garaje, despensa;
+        Room entrada, pasillo, habitacion1, bano, salonComedor, cocina, garaje, despensa, jardin;
       
         // create the rooms
         entrada = new Room("en la entrada de la casa");
@@ -45,9 +45,11 @@ public class Game
         cocina = new Room("en una cocina");
         garaje = new Room("en un garaje");
         despensa = new Room("en una despensa");
+        jardin = new Room("en un jardin");
         
         // initialise room exits
         entrada.setExit("north", pasillo);
+        entrada.setExit("salir", jardin);
         pasillo.setExit("north", habitacion1);
         pasillo.setExit("south", entrada);
         pasillo.setExit("east", salonComedor);
@@ -60,6 +62,7 @@ public class Game
         salonComedor.setExit("west", pasillo);
         garaje.setExit("west", salonComedor);
         cocina.setExit("north", salonComedor);
+        jardin.setExit("entrar", entrada);
 
         currentRoom = entrada;  // start game outside
     }
