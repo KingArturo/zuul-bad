@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * Class Room - a room in an adventure game.
  *
@@ -15,11 +17,7 @@
 public class Room 
 {
     private String description;
-    private Room northExit;
-    private Room southExit;
-    private Room eastExit;
-    private Room westExit;
-    private Room southEastExit;
+    private HashMap<String, Room> salida;
 
     /**
      * Create a room described "description". Initially, it has
@@ -30,6 +28,7 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
+        salida=null;
     }
 
     /**
@@ -40,7 +39,7 @@ public class Room
      * @param south The south exit.
      * @param west The west exit.
      */
-    public void setExits(Room north, Room east, Room south, Room west, Room southEast) 
+    /* public void setExits(Room north, Room east, Room south, Room west, Room southEast) 
     {
         if(north != null)
             northExit = north;
@@ -53,7 +52,7 @@ public class Room
         if(southEast != null) {
             southEastExit = southEast;
         }
-    }
+    } */
 
     /**
      * @return The description of the room.
@@ -72,19 +71,19 @@ public class Room
     public Room getExit(String salida) {
         Room nextRoom = null;
         if(salida.equals("north")) {
-            nextRoom = northExit;
+            nextRoom = this.salida.get("north");
         }
         if(salida.equals("east")) {
-            nextRoom = eastExit;
+            nextRoom = this.salida.get("east");
         }
         if(salida.equals("south")) {
-            nextRoom = southExit;
+            nextRoom = this.salida.get("south");
         }
         if(salida.equals("west")) {
-            nextRoom = westExit;
+            nextRoom = this.salida.get("west");
         }
         if(salida.equals("south-east")) {
-            nextRoom = southEastExit;
+            nextRoom = this.salida.get("south-east");
         }
     
         return nextRoom;
@@ -99,15 +98,15 @@ public class Room
     */
     public String getExitString(){
         String salidas = "Exits: ";
-        if(northExit != null)
+        if(salida.get("north") != null)
             salidas += "Norte ";
-        if(eastExit != null)
+        if(salida.get("east") != null)
             salidas += "Este ";
-        if(southExit != null)
+        if(salida.get("south") != null)
             salidas += "Sur ";
-        if(westExit != null)
+        if(salida.get("west") != null)
             salidas += "Oeste ";
-        if(southEastExit != null)
+        if(salida.get("south-east") != null)
             salidas += "Sur-Oeste";
         return salidas;
     }
@@ -119,14 +118,14 @@ public class Room
     */
     public void setExit(String direccion, Room sala) {
         if(direccion.equals("north"))
-            northExit=sala;
+            salida.put("north", sala);
         if(direccion.equals("east"))
-            eastExit = sala;
+            salida.put("east", sala);
         if(direccion.equals("south"))
-            southExit = sala;
+            salida.put("south", sala);
         if(direccion.equals("west"))
-            westExit = sala;
+            salida.put("west", sala);
         if(direccion.equals("south-east"))
-            southEastExit = sala;
+            salida.put("south-east", sala);
     }
 }
