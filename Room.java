@@ -28,7 +28,7 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
-        salida=null;
+        salida=new HashMap<>();
     }
 
     /**
@@ -69,23 +69,7 @@ public class Room
     * @return La sala ubicada en la direccion especificada o null si no hay ninguna salida en esa direccion
     */
     public Room getExit(String salida) {
-        Room nextRoom = null;
-        if(salida.equals("north")) {
-            nextRoom = this.salida.get("north");
-        }
-        if(salida.equals("east")) {
-            nextRoom = this.salida.get("east");
-        }
-        if(salida.equals("south")) {
-            nextRoom = this.salida.get("south");
-        }
-        if(salida.equals("west")) {
-            nextRoom = this.salida.get("west");
-        }
-        if(salida.equals("south-east")) {
-            nextRoom = this.salida.get("south-east");
-        }
-    
+        Room nextRoom = this.salida.get(salida);    
         return nextRoom;
     }
 
@@ -98,16 +82,9 @@ public class Room
     */
     public String getExitString(){
         String salidas = "Exits: ";
-        if(salida.get("north") != null)
-            salidas += "Norte ";
-        if(salida.get("east") != null)
-            salidas += "Este ";
-        if(salida.get("south") != null)
-            salidas += "Sur ";
-        if(salida.get("west") != null)
-            salidas += "Oeste ";
-        if(salida.get("south-east") != null)
-            salidas += "Sur-Oeste";
+        for(String sala : this.salida.keySet()) {
+            salidas += sala + " ";
+        }
         return salidas;
     }
     /**
@@ -117,15 +94,6 @@ public class Room
     * @param sala La sala que se encuentra en la direccion indicada
     */
     public void setExit(String direccion, Room sala) {
-        if(direccion.equals("north"))
-            salida.put("north", sala);
-        if(direccion.equals("east"))
-            salida.put("east", sala);
-        if(direccion.equals("south"))
-            salida.put("south", sala);
-        if(direccion.equals("west"))
-            salida.put("west", sala);
-        if(direccion.equals("south-east"))
-            salida.put("south-east", sala);
+        salida.put(direccion, sala);
     }
 }
