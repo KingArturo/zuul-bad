@@ -183,9 +183,7 @@ public class Game
     }
 
     private void printLacationInfo() {
-        System.out.println("Estás " + currentRoom.getDescription());
-        System.out.println(currentRoom.getExitString());
-        System.out.println();
+        System.out.println(currentRoom.getLongDescription());
     }
     
 }
