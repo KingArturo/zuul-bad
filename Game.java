@@ -122,11 +122,22 @@ public class Game
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
+        else if(commandWord.equals("look")) {
+            look();
+        }
 
         return wantToQuit;
     }
 
     // implementations of user commands:
+
+    /**
+     * Inprime por pantalla la informacion completa de la sala
+     * en la que te encuentras
+     */
+    private void look() {
+        System.out.println(currentRoom.getLongDescription());
+    }
 
     /**
      * Print out some help information.
