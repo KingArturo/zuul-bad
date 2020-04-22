@@ -37,15 +37,15 @@ public class Game
         Room entrada, pasillo, habitacion1, bano, salonComedor, cocina, garaje, despensa, jardin;
       
         // create the rooms
-        entrada = new Room("en la entrada de la casa", "", 0);
-        pasillo = new Room("en el pasillo", "", 0);
-        habitacion1 = new Room("en tu habitacion", "escritorio gris", 16);
-        bano = new Room("en el baño", "", 0);
-        salonComedor = new Room("en un salon", "", 0);
-        cocina = new Room("en una cocina", "", 0);
-        garaje = new Room("en un garaje", "coche marron", 500);
-        despensa = new Room("en una despensa", "", 0);
-        jardin = new Room("en un jardin", "corta cesped rojo", 25);
+        entrada = new Room("en la entrada de la casa", null);
+        pasillo = new Room("en el pasillo", null);
+        habitacion1 = new Room("en tu habitacion", new Item("escritorio gri", 16));
+        bano = new Room("en el baño", null);
+        salonComedor = new Room("en un salon", null);
+        cocina = new Room("en una cocina", null);
+        garaje = new Room("en un garaje", new Item("coche marron", 500));
+        despensa = new Room("en una despensa", null);
+        jardin = new Room("en un jardin", new Item("corta cesped", 25));
         
         // initialise room exits
         entrada.setExit("north", pasillo);

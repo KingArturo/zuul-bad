@@ -26,11 +26,11 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description, String itemDescription, int itemWeight) 
+    public Room(String description, Item item) 
     {
         this.description = description;
         salida=new HashMap<>();
-        item = new Item(itemDescription, itemWeight);
+        this.item = item;
     }
 
     /**
@@ -111,7 +111,7 @@ public class Room
         String text = "Te encuentras ";
         text += getDescription();
         text += "\n" + getExitString();
-        if(!item.getDescription().equals("")){
+        if(item != null){
             text += "\nVes un " + item.getDescription();
             text += " , peso " + item.getWeight() + "kg";
         }
