@@ -42,7 +42,7 @@ public class CommandWords
     /** 
     * Imprime por pantalla todos los comandos válidos 
     */
-    public String showAll() {
+    public String getComandList() {
         String comandos = "go, quit, help, look, eat";
         return comandos;
     }

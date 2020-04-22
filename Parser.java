@@ -67,7 +67,7 @@ public class Parser
     * Imprime una lista de las palabras de comando validas 
     */
     public String showCommands() {
-        String comandos = commands.showAll();
+        String comandos = commands.getComandList();
         return comandos;
     }
 }
