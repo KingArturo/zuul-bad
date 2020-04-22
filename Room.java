@@ -129,8 +129,10 @@ public class Room
         String text = "Te encuentras ";
         text += getDescription();
         text += "\n" + getExitString();
-        text += "\nObjeto " + getItemDescriptio();
-        text += " , peso " + getItemWeight() + "kg";
+        if(!itemDescription.equals("")){
+            text += "\nObjeto " + getItemDescriptio();
+            text += " , peso " + getItemWeight() + "kg";
+        }
         return text;
     }
 }
