@@ -18,8 +18,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> salida;
-    private String itemDescription;
-    private int itemWeight;
+    private Item item;
 
     /**
      * Create a room described "description". Initially, it has
@@ -31,8 +30,7 @@ public class Room
     {
         this.description = description;
         salida=new HashMap<>();
-        this.itemDescription=itemDescription;
-        this.itemWeight=itemWeight;
+        item = new Item(itemDescription, itemWeight);
     }
 
     /**
@@ -64,22 +62,6 @@ public class Room
     public String getDescription()
     {
         return description;
-    }
-
-    /**
-     * Devuelve la descripcion del item;
-     * @return
-     */
-    public String getItemDescriptio() {
-        return itemDescription;
-    }
-
-    /**
-     * Devuelve el peso del objeto
-     * @return
-     */
-    public int getItemWeight() {
-        return itemWeight;
     }
 
     /**
@@ -129,9 +111,9 @@ public class Room
         String text = "Te encuentras ";
         text += getDescription();
         text += "\n" + getExitString();
-        if(!itemDescription.equals("")){
-            text += "\nObjeto " + getItemDescriptio();
-            text += " , peso " + getItemWeight() + "kg";
+        if(!item.getDescription().equals("")){
+            text += "\nVes un " + item.getDescription();
+            text += " , peso " + item.getWeight() + "kg";
         }
         return text;
     }

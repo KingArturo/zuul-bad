@@ -39,13 +39,13 @@ public class Game
         // create the rooms
         entrada = new Room("en la entrada de la casa", "", 0);
         pasillo = new Room("en el pasillo", "", 0);
-        habitacion1 = new Room("en tu habitacion", "Escritorio gris", 16);
+        habitacion1 = new Room("en tu habitacion", "escritorio gris", 16);
         bano = new Room("en el baño", "", 0);
         salonComedor = new Room("en un salon", "", 0);
         cocina = new Room("en una cocina", "", 0);
-        garaje = new Room("en un garaje", "Coche marron", 500);
+        garaje = new Room("en un garaje", "coche marron", 500);
         despensa = new Room("en una despensa", "", 0);
-        jardin = new Room("en un jardin", "Corta cesped rojo", 25);
+        jardin = new Room("en un jardin", "corta cesped rojo", 25);
         
         // initialise room exits
         entrada.setExit("north", pasillo);
