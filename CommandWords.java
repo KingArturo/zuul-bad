@@ -42,7 +42,8 @@ public class CommandWords
     /** 
     * Imprime por pantalla todos los comandos válidos 
     */
-    public void showAll() {
-        System.out.println("go, quit, help, look, eat");
+    public String showAll() {
+        String comandos = "go, quit, help, look, eat";
+        return comandos;
     }
 }
