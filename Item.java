@@ -1,5 +1,5 @@
 /**
- * Clae que representa un objeto que tiene una descipcion y
+ * Clase que representa un objeto que tiene una descipcion y
  * un peso.
  */
 public class Item {
