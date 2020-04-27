@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Stack;
 
 /**
@@ -22,6 +24,8 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private Stack<Room> previousRoom;
+    private ArrayList<Item> playerItems;
+    private int maxWeigth;
         
     /**
      * Create the game and initialise its internal map.
@@ -31,6 +35,8 @@ public class Game
         createRooms();
         parser = new Parser();
         previousRoom = new Stack<>();
+        playerItems = new ArrayList<>();
+        maxWeigth = 80;
     }
 
     /**
@@ -52,12 +58,12 @@ public class Game
         jardin = new Room("en un jardin");
 
         // Asociate the items
-        habitacion1.addItem("escritorio gri", 16);
-        bano.addItem("lavabo estropeado", 35);
-        salonComedor.addItem("sofa grande y maron", 80);
-        salonComedor.addItem("mesa heaxagonal de color burdeos", 30);
-        garaje.addItem("coche marron", 500);
-        jardin.addItem("corta cesped", 25);
+        habitacion1.addItem("escritorio", "escritorio gri", 16, true);
+        bano.addItem("lavabo", "lavabo estropeado", 35, true);
+        salonComedor.addItem("sofa", "sofa grande y maron", 80, false);
+        salonComedor.addItem("mesa", "mesa heaxagonal de color burdeos", 60, true);
+        garaje.addItem("coche", "coche marron", 500, false);
+        jardin.addItem("cortacesped", "corta cesped", 25, true);
         
         // initialise room exits
         entrada.setExit("north", pasillo);
@@ -143,6 +149,15 @@ public class Game
         else if(commandWord.equals("back")) {
             back();
         }
+        else if(commandWord.equals("take")) {
+            take(command);
+        }
+        else if(commandWord.equals("drop")) {
+            drop(command);
+        }
+        else if(commandWord.equals("items")) {
+            items();
+        }
 
         return wantToQuit;
     }
@@ -194,6 +209,101 @@ public class Game
         System.out.println(parser.showCommands());
     }
 
+    /**
+     * Permite cojer un objeto de la sala
+     */
+    private void take(Command comando) {
+        if(!comando.hasSecondWord()) {
+            System.out.println("Take what?");
+            return;
+        }
+        String objeto = comando.getSecondWord();
+
+        if (currentRoom.getItems().isEmpty()) {
+            System.out.println("No hay objetos en esta sala");
+        }
+        else {
+            Item item = null;
+            for (Item item2 : currentRoom.getItems()) {
+                if(item2.getId().equals(objeto)) {
+                    if(item2.getTake()) {
+                        if(maxWeigth > totalWeigth() && 
+                        maxWeigth > (item2.getWeight() + totalWeigth())) {
+                            playerItems.add(item2);
+                            item = item2;
+                        }
+                        else {
+                            System.out.println("Llevas demasiado peso");
+                        }
+                    }
+                    else {
+                        System.out.println("Este objeto no se puede coger");
+                    }
+                }
+            }
+            if(item != null) {
+                System.out.println("Coges el objeto sin problemas");
+                currentRoom.removeItem(item.getId());
+            }
+        }
+    }
+
+    /**
+     * Permite ver los objetos que llebas encima
+     * @param command
+     */
+    private void items() {
+        if(playerItems.isEmpty()) {
+            System.out.println("No levas objetos encima");
+        }
+        else {
+            String text = "Llevas encima ";
+            for (Item item : playerItems) {
+                text += "un " + item.getDescription();
+                text += ", su id es " + item.getId();
+                text += ", peso " + item.getWeight() + "kg\n";
+            }
+            text += "Llevas " + totalWeigth() + "kg";
+            System.out.println(text);
+        }
+    }
+
+    /**
+     * Metodo que permite soltar un objeto pasdo por parametro.
+     * @param command
+     */
+    private void drop(Command comando) {
+        if(!comando.hasSecondWord()) {
+            System.out.println("Drop what?");
+            return;
+        }
+        String objeto = comando.getSecondWord();
+
+        if (playerItems.isEmpty()) {
+            System.out.println("No llevas objetos");
+        }
+        else {
+            Item item = null;
+            Iterator<Item> it = playerItems.iterator();
+            while(it.hasNext()) {
+                Item item2 =it.next();
+                String idItem = item2.getId();
+                if(idItem.equals(objeto)) {
+                    it.remove();
+                    item = item2;
+                }
+            }            
+            if(item != null) {
+                System.out.println("Sueltas el objeto");
+                currentRoom.addItem(item.getId(), item.getDescription(), item.getWeight(), 
+                item.getTake());
+            }
+            else {
+                System.out.println("No llevas ese objeto en el inventario");
+            }
+        }
+    }
+
     /** 
      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
@@ -241,6 +351,14 @@ public class Game
      */
     private void printLacationInfo() {
         System.out.println(currentRoom.getLongDescription());
+    }
+
+    private int totalWeigth() {
+        int weigth = 0;
+        for (Item item : playerItems) {
+            weigth += item.getWeight();
+        }
+        return weigth;
     }
 
 }
