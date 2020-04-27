@@ -144,7 +144,10 @@ public class Room
         items.add(item);
     }
 
-
+    /**
+     * Borra el objeto cuyo id sea el mismo que el pasado 
+     * por parametro
+    */
     public void removeItem(String id) {
         Iterator<Item> it = items.iterator();
         while(it.hasNext()) {
@@ -153,6 +156,17 @@ public class Room
                 it.remove();
             }
         }
-
     }
+
+    public Item getItem(String id) {
+        Item objeto = null;
+        for (Item item : items) {
+            if(item.getId().equals(id)) {
+                    objeto = item;
+            }
+        }
+        return objeto;
+    }
+
+    
 }

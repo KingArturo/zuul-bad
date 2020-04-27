@@ -223,23 +223,18 @@ public class Game
             System.out.println("No hay objetos en esta sala");
         }
         else {
-            Item item = null;
-            for (Item item2 : currentRoom.getItems()) {
-                if(item2.getId().equals(objeto)) {
-                    if(item2.getTake()) {
-                        if(maxWeigth > totalWeigth() && 
-                        maxWeigth > (item2.getWeight() + totalWeigth())) {
-                            playerItems.add(item2);
-                            item = item2;
-                        }
-                        else {
-                            System.out.println("Llevas demasiado peso");
-                        }
-                    }
-                    else {
-                        System.out.println("Este objeto no se puede coger");
-                    }
+            Item item = currentRoom.getItem(objeto);           
+            if(item.getTake()) {
+                if(maxWeigth > totalWeigth() && 
+                maxWeigth > (item.getWeight() + totalWeigth())) {
+                        playerItems.add(item);
                 }
+                else {
+                        System.out.println("Llevas demasiado peso");
+                }
+            }
+            else {
+                System.out.println("Este objeto no se puede coger");
             }
             if(item != null) {
                 System.out.println("Coges el objeto sin problemas");
