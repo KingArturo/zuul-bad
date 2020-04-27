@@ -19,6 +19,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Room previousRoom;
         
     /**
      * Create the game and initialise its internal map.
@@ -27,6 +28,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        previousRoom = null;
     }
 
     /**
@@ -136,11 +138,29 @@ public class Game
         else if(commandWord.equals("eat")) {
             eat();
         }
+        else if(commandWord.equals("back")) {
+            back();
+        }
 
         return wantToQuit;
     }
 
     // implementations of user commands:
+
+    /**
+     * Te envia a la sala en la que estabas, execpto al 
+     * inicio del juego o que el jugador lo invoque dos o mas veces.
+     */
+    private void back() {
+        if(previousRoom != null) {
+            currentRoom = previousRoom;
+            System.out.println(currentRoom.getLongDescription());
+            previousRoom = null;
+        }
+        else {
+            System.out.println("No hay lugar al que volver.");
+        }
+    }
 
     /**
      * Imprime por pantalla el siguiente mensaje
@@ -191,6 +211,7 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            previousRoom = currentRoom;
             currentRoom = currentRoom.getExit(direction);
             printLacationInfo();
         }
@@ -212,6 +233,10 @@ public class Game
         }
     }
 
+    /**
+     * Imprime por pantalla la informacion de la sala 
+     * en la que te encuentras.
+     */
     private void printLacationInfo() {
         System.out.println(currentRoom.getLongDescription());
     }
