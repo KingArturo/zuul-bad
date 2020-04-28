@@ -42,7 +42,7 @@ public class Player {
                 currentRoom.getItems().remove(item);
             }
             else {
-                System.out.println("No esta ese objeto en la sala");
+                System.out.println("No esta ese objeto en la sala o no se puede coger");
             }
         }
     }
@@ -105,13 +105,16 @@ public class Player {
     }
 
     /**
-     * Busca el item que tiene el id que se le pasa por parametro.
+     * Busca el item que tiene el id que se le pasa por parametro y 
+     * comprueba que el objeto se puede coger.
      */
     private Item getItem(String item) {
         Item objeto = null;
         for(Item it : currentRoom.getItems()) {
             if(it.getId().equals(item)) {
-                objeto = it;
+                if(it.canTake()) {
+                    objeto = it;
+                }                
             }
         }
         return objeto;

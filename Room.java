@@ -126,8 +126,8 @@ public class Room
      * @param description
      * @param weight
      */
-    public void addItem(String id, String description, int weight) {
-        Item item = new Item(id, description, weight);
+    public void addItem(String id, String description, int weight, boolean canTake) {
+        Item item = new Item(id, description, weight, canTake);
         items.add(item);
     }
 
