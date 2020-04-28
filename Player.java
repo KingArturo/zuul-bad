@@ -47,6 +47,27 @@ public class Player {
         }
     }
 
+    /**
+     * Permite ver los objetos que llebas encima
+     * @param command
+     */
+    public void items() {
+        if(items.isEmpty()) {
+            System.out.println("No levas objetos encima");
+        }
+        else {
+            String text = "Llevas encima ";
+            for (Item item : items) {
+                text += "un " + item.getDescription();
+                text += ", su id es " + item.getId();
+                text += ", peso " + item.getWeight() + "kg\n";
+            }
+            text += "Llevas " + totalWeigth() + "kg";
+            System.out.println(text);
+        }
+    }
+
+
 
     /** 
      * Try to go in one direction. If there is an exit, enter
@@ -118,6 +139,18 @@ public class Player {
             }
         }
         return objeto;
+    }
+
+    /**
+     * Metodo que suma el total del peso de los objetos que 
+     * llevas encima.
+     */
+    public int totalWeigth() {
+        int peso = 0;
+        for(Item item : items) {
+            peso += item.getWeight();
+        }
+        return peso;
     }
 
 }
