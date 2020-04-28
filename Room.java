@@ -111,13 +111,11 @@ public class Room
     public String getLongDescription() {
         String text = "Te encuentras ";
         text += getDescription();
-        text += "\n" + getExitString();
-        if(!items.isEmpty()){
-            for (Item item : items) {
-                text += "\nVes un " + item.getDescription();
-                text += " , peso " + item.getWeight() + "kg";
-            }            
-        }
+        text += "\n" + getExitString();        
+        for (Item item : items) {
+            text += "\nVes un " + item.getDescription();
+            text += " , peso " + item.getWeight() + "kg";
+        }            
         return text;
     }
 

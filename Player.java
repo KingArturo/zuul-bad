@@ -49,9 +49,8 @@ public class Player {
      */
     public void back() {
         if(!previousRoom.empty()) {
-            currentRoom = previousRoom.get(previousRoom.size()-1);
+            currentRoom = previousRoom.pop();
             System.out.println(currentRoom.getLongDescription());
-            previousRoom.remove(previousRoom.size()-1);
         }
         else {
             System.out.println("No hay lugar al que volver.");
