@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Stack;
 
 /**
@@ -82,20 +81,12 @@ public class Player {
             System.out.println("No llevas objetos");
         }
         else {
-            Item item = null;
-            Iterator<Item> it = items.iterator();
-            while(it.hasNext()) {
-                Item item2 = it.next();
-                String idItem = item2.getId();
-                if(idItem.equals(objeto)) {
-                    it.remove();
-                    item = item2;
-                }
-            }            
+            Item item = getItemPlayerInventory(objeto);           
             if(item != null) {
                 System.out.println("Sueltas el objeto");
                 currentRoom.addItem(item.getId(), item.getDescription(), item.getWeight(), 
                 item.canTake());
+                items.remove(item);
             }
             else {
                 System.out.println("No llevas ese objeto en el inventario");
@@ -159,6 +150,22 @@ public class Player {
     }
 
     /**
+     * Metodo que aumenta en 30 el peso maximo que puedes llevar 
+     * si el jugador tiene el item "pesas".
+     * @param item
+     * @return
+     */
+    public void train() {
+        if(getItemPlayerInventory("pesas") != null) {
+            maxWeigth += 30;
+            System.out.println("Utilizas las pesas para entrenas, ahora te sientes mas fuerte");
+        }
+        else {
+            System.out.println("No tienes nada con lo que entrenar");
+        }
+    }
+
+    /**
      * Busca el item que tiene el id que se le pasa por parametro y 
      * comprueba que el objeto se puede coger.
      */
@@ -192,6 +199,21 @@ public class Player {
             peso += item.getWeight();
         }
         return peso;
+    }
+
+    /**
+     * Metodo que busca el id de un objeto Item y lo devuelve.
+     * @param idItem
+     * @return
+     */
+    private Item getItemPlayerInventory(String idItem) {
+        Item objeto = null;
+        for (Item item : items) {
+            if(item.getId().equals(idItem)) {
+                objeto = item;
+            }
+        }
+        return objeto;
     }
 
 }

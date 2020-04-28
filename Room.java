@@ -88,20 +88,12 @@ public class Room
     public String getLongDescription() {
         String text = "Te encuentras ";
         text += getDescription();
-<<<<<<< HEAD
-        text += "\n" + getExitString();        
-        for (Item item : items) {
-            text += "\nVes un " + item.getDescription();
-            text += " , peso " + item.getWeight() + "kg";
-        }            
-=======
         text += "\n" + getExitString();
         for (Item item : items) {
             text += "\nVes un " + item.getDescription();
             text += " su id es " + item.getId();
             text += " , peso " + item.getWeight() + "kg";
         }  
->>>>>>> ramaObjetos
         return text;
     }
 

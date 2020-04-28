@@ -56,6 +56,7 @@ public class Game
         salonComedor.addItem("mesa", "mesa heaxagonal de color burdeos", 60, true);
         garaje.addItem("cache", "coche marron", 500, false);
         jardin.addItem("cortacesped", "corta cesped", 25, true);
+        garaje.addItem("pesas", "pesas", 10, true);
         
         // initialise room exits
         entrada.setExit("north", pasillo);
@@ -150,6 +151,10 @@ public class Game
         else if(commandWord.equals("drop")) {
             player.drop(command);
         }
+        else if(commandWord.equals("train")) {
+            player.train();
+        }
+
 
         return wantToQuit;
     }
