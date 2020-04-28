@@ -50,12 +50,12 @@ public class Game
         jardin = new Room("en un jardin");
 
         // Asociate the items
-        habitacion1.addItem("escritorio gri", 16);
-        bano.addItem("lavabo estropeado", 35);
-        salonComedor.addItem("sofa grande y maron", 80);
-        salonComedor.addItem("mesa heaxagonal de color burdeos", 30);
-        garaje.addItem("coche marron", 500);
-        jardin.addItem("corta cesped", 25);
+        habitacion1.addItem("escritorio", "escritorio gri", 16);
+        bano.addItem("lavabo", "lavabo estropeado", 35);
+        salonComedor.addItem("sofa", "sofa grande y maron", 80);
+        salonComedor.addItem("mesa", "mesa heaxagonal de color burdeos", 30);
+        garaje.addItem("cache", "coche marron", 500);
+        jardin.addItem("cortacesped", "corta cesped", 25);
         
         // initialise room exits
         entrada.setExit("north", pasillo);
@@ -140,6 +140,9 @@ public class Game
         }
         else if(commandWord.equals("back")) {
             player.back();
+        }
+        else if(commandWord.equals("take")) {
+            player.take(command);
         }
 
         return wantToQuit;

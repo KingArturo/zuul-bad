@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -8,15 +9,44 @@ public class Player {
     
     private Room currentRoom;
     private Stack<Room> previousRoom;
+    private ArrayList<Item> items;
 
     public Player() {
         currentRoom = null;
         previousRoom = new Stack<>();
+        items = new ArrayList<>();
     }
 
     public void setCurrentRoom(Room sala) {
         currentRoom = sala;
     }
+
+    /**
+     * Permite cojer un objeto de la sala
+     */
+    public void take(Command comando) {
+        if(!comando.hasSecondWord()) {
+            System.out.println("Take what?");
+            return;
+        }
+        String objeto = comando.getSecondWord();
+
+        if (currentRoom.getItems().isEmpty()) {
+            System.out.println("No hay objetos en esta sala");
+        }
+        else {
+            Item item = getItem(objeto);
+            if(item != null) {
+                items.add(item);
+                System.out.println("Coges el objeto sin problemas");
+                currentRoom.getItems().remove(item);
+            }
+            else {
+                System.out.println("No esta ese objeto en la sala");
+            }
+        }
+    }
+
 
     /** 
      * Try to go in one direction. If there is an exit, enter
@@ -72,6 +102,19 @@ public class Player {
      */
     public void look() {
         System.out.println(currentRoom.getLongDescription());
+    }
+
+    /**
+     * Busca el item que tiene el id que se le pasa por parametro.
+     */
+    private Item getItem(String item) {
+        Item objeto = null;
+        for(Item it : currentRoom.getItems()) {
+            if(it.getId().equals(item)) {
+                objeto = it;
+            }
+        }
+        return objeto;
     }
 
 }

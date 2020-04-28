@@ -4,6 +4,7 @@
  */
 public class Item {
 
+    private String id;
     private String description;
     private int weight;
 
@@ -12,7 +13,8 @@ public class Item {
      * @param itemDescription
      * @param itemWeight
      */
-    public Item(String itemDescription, int itemWeight) {
+    public Item(String itemId, String itemDescription, int itemWeight) {
+        id = itemId;
         description = itemDescription;
         weight = itemWeight;
     }
@@ -31,5 +33,9 @@ public class Item {
      */
     public int getWeight() {
         return weight;
+    }
+
+    public String getId() {
+        return id;
     }
 }

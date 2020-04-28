@@ -121,8 +121,21 @@ public class Room
         return text;
     }
 
-    public void addItem(String description, int weight) {
-        Item item = new Item(description, weight);
+    /**
+     * Añade un item a la sala
+     * @param description
+     * @param weight
+     */
+    public void addItem(String id, String description, int weight) {
+        Item item = new Item(id, description, weight);
         items.add(item);
+    }
+
+    /**
+     * Devuelve la coleccion que contiene los objetos de la sala.
+     * @return
+     */
+    public ArrayList<Item> getItems() {
+        return items;
     }
 }
