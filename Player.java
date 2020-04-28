@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Stack;
 
 /**
@@ -8,14 +10,97 @@ public class Player {
     
     private Room currentRoom;
     private Stack<Room> previousRoom;
+    private ArrayList<Item> items;
+    private int maxWeigth;
 
-    public Player() {
+    public Player(int maxPeso) {
         currentRoom = null;
         previousRoom = new Stack<>();
+        items = new ArrayList<>();
+        maxWeigth = maxPeso;
     }
 
     public void setCurrentRoom(Room sala) {
         currentRoom = sala;
+    }
+
+    /**
+     * Permite cojer un objeto de la sala
+     */
+    public void take(Command comando) {
+        if(!comando.hasSecondWord()) {
+            System.out.println("Take what?");
+            return;
+        }
+        String objeto = comando.getSecondWord();
+
+        if (currentRoom.getItems().isEmpty()) {
+            System.out.println("No hay objetos en esta sala");
+        }
+        else {
+            Item item = getItem(objeto);
+            if(item != null) {
+                items.add(item);
+                System.out.println("Coges el objeto sin problemas");
+                currentRoom.getItems().remove(item);
+            }
+        }
+    }
+
+    /**
+     * Permite ver los objetos que llebas encima
+     * @param command
+     */
+    public void items() {
+        if(items.isEmpty()) {
+            System.out.println("No levas objetos encima");
+        }
+        else {
+            String text = "Llevas encima ";
+            for (Item item : items) {
+                text += "un " + item.getDescription();
+                text += ", su id es " + item.getId();
+                text += ", peso " + item.getWeight() + "kg\n";
+            }
+            text += "Llevas " + totalWeigth() + "kg";
+            System.out.println(text);
+        }
+    }
+
+    /**
+     * Metodo que permite soltar un objeto pasdo por parametro.
+     * @param command
+     */
+    public void drop(Command comando) {
+        if(!comando.hasSecondWord()) {
+            System.out.println("Drop what?");
+            return;
+        }
+        String objeto = comando.getSecondWord();
+
+        if (items.isEmpty()) {
+            System.out.println("No llevas objetos");
+        }
+        else {
+            Item item = null;
+            Iterator<Item> it = items.iterator();
+            while(it.hasNext()) {
+                Item item2 = it.next();
+                String idItem = item2.getId();
+                if(idItem.equals(objeto)) {
+                    it.remove();
+                    item = item2;
+                }
+            }            
+            if(item != null) {
+                System.out.println("Sueltas el objeto");
+                currentRoom.addItem(item.getId(), item.getDescription(), item.getWeight(), 
+                item.canTake());
+            }
+            else {
+                System.out.println("No llevas ese objeto en el inventario");
+            }
+        }
     }
 
     /** 
@@ -71,6 +156,42 @@ public class Player {
      */
     public void look() {
         System.out.println(currentRoom.getLongDescription());
+    }
+
+    /**
+     * Busca el item que tiene el id que se le pasa por parametro y 
+     * comprueba que el objeto se puede coger.
+     */
+    private Item getItem(String item) {
+        Item objeto = null;
+        for(Item it : currentRoom.getItems()) {
+            if(it.getId().equals(item)) {
+                if(it.canTake()) {
+                    if( maxWeigth > (it.getWeight() + totalWeigth()) ) {
+                        objeto = it;
+                    }
+                    else {
+                        System.out.println("No puedes llevar tanto peso.");
+                    }
+                }
+                else {
+                    System.out.println("Este objeto no se puede coger.");
+                }                
+            }
+        }
+        return objeto;
+    }
+
+    /**
+     * Metodo que suma el total del peso de los objetos que 
+     * llevas encima.
+     */
+    public int totalWeigth() {
+        int peso = 0;
+        for(Item item : items) {
+            peso += item.getWeight();
+        }
+        return peso;
     }
 
 }

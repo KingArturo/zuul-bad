@@ -35,29 +35,6 @@ public class Room
     }
 
     /**
-     * Define the exits of this room.  Every direction either leads
-     * to another room or is null (no exit there).
-     * @param north The north exit.
-     * @param east The east east.
-     * @param south The south exit.
-     * @param west The west exit.
-     */
-    /* public void setExits(Room north, Room east, Room south, Room west, Room southEast) 
-    {
-        if(north != null)
-            northExit = north;
-        if(east != null)
-            eastExit = east;
-        if(south != null)
-            southExit = south;
-        if(west != null)
-            westExit = west;
-        if(southEast != null) {
-            southEastExit = southEast;
-        }
-    } */
-
-    /**
      * @return The description of the room.
      */
     public String getDescription()
@@ -111,16 +88,38 @@ public class Room
     public String getLongDescription() {
         String text = "Te encuentras ";
         text += getDescription();
+<<<<<<< HEAD
         text += "\n" + getExitString();        
         for (Item item : items) {
             text += "\nVes un " + item.getDescription();
             text += " , peso " + item.getWeight() + "kg";
         }            
+=======
+        text += "\n" + getExitString();
+        for (Item item : items) {
+            text += "\nVes un " + item.getDescription();
+            text += " su id es " + item.getId();
+            text += " , peso " + item.getWeight() + "kg";
+        }  
+>>>>>>> ramaObjetos
         return text;
     }
 
-    public void addItem(String description, int weight) {
-        Item item = new Item(description, weight);
+    /**
+     * Añade un item a la sala
+     * @param description
+     * @param weight
+     */
+    public void addItem(String id, String description, int weight, boolean canTake) {
+        Item item = new Item(id, description, weight, canTake);
         items.add(item);
+    }
+
+    /**
+     * Devuelve la coleccion que contiene los objetos de la sala.
+     * @return
+     */
+    public ArrayList<Item> getItems() {
+        return items;
     }
 }

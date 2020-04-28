@@ -27,7 +27,7 @@ public class Game
     public Game() 
     {
         parser = new Parser();
-        player = new Player();
+        player = new Player(80);
         createRooms();
     }
 
@@ -50,12 +50,12 @@ public class Game
         jardin = new Room("en un jardin");
 
         // Asociate the items
-        habitacion1.addItem("escritorio gri", 16);
-        bano.addItem("lavabo estropeado", 35);
-        salonComedor.addItem("sofa grande y maron", 80);
-        salonComedor.addItem("mesa heaxagonal de color burdeos", 30);
-        garaje.addItem("coche marron", 500);
-        jardin.addItem("corta cesped", 25);
+        habitacion1.addItem("escritorio", "escritorio gri", 16, true);
+        bano.addItem("lavabo", "lavabo estropeado", 35, true);
+        salonComedor.addItem("sofa", "sofa grande y maron", 80, false);
+        salonComedor.addItem("mesa", "mesa heaxagonal de color burdeos", 60, true);
+        garaje.addItem("cache", "coche marron", 500, false);
+        jardin.addItem("cortacesped", "corta cesped", 25, true);
         
         // initialise room exits
         entrada.setExit("north", pasillo);
@@ -140,6 +140,15 @@ public class Game
         }
         else if(commandWord.equals("back")) {
             player.back();
+        }
+        else if(commandWord.equals("take")) {
+            player.take(command);
+        }
+        else if(commandWord.equals("items")) {
+            player.items();
+        }
+        else if(commandWord.equals("drop")) {
+            player.drop(command);
         }
 
         return wantToQuit;
