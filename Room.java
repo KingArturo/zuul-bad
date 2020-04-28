@@ -35,29 +35,6 @@ public class Room
     }
 
     /**
-     * Define the exits of this room.  Every direction either leads
-     * to another room or is null (no exit there).
-     * @param north The north exit.
-     * @param east The east east.
-     * @param south The south exit.
-     * @param west The west exit.
-     */
-    /* public void setExits(Room north, Room east, Room south, Room west, Room southEast) 
-    {
-        if(north != null)
-            northExit = north;
-        if(east != null)
-            eastExit = east;
-        if(south != null)
-            southExit = south;
-        if(west != null)
-            westExit = west;
-        if(southEast != null) {
-            southEastExit = southEast;
-        }
-    } */
-
-    /**
      * @return The description of the room.
      */
     public String getDescription()

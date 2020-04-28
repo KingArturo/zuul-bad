@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Stack;
 
 /**
@@ -67,7 +68,41 @@ public class Player {
         }
     }
 
+    /**
+     * Metodo que permite soltar un objeto pasdo por parametro.
+     * @param command
+     */
+    public void drop(Command comando) {
+        if(!comando.hasSecondWord()) {
+            System.out.println("Drop what?");
+            return;
+        }
+        String objeto = comando.getSecondWord();
 
+        if (items.isEmpty()) {
+            System.out.println("No llevas objetos");
+        }
+        else {
+            Item item = null;
+            Iterator<Item> it = items.iterator();
+            while(it.hasNext()) {
+                Item item2 = it.next();
+                String idItem = item2.getId();
+                if(idItem.equals(objeto)) {
+                    it.remove();
+                    item = item2;
+                }
+            }            
+            if(item != null) {
+                System.out.println("Sueltas el objeto");
+                currentRoom.addItem(item.getId(), item.getDescription(), item.getWeight(), 
+                item.canTake());
+            }
+            else {
+                System.out.println("No llevas ese objeto en el inventario");
+            }
+        }
+    }
 
     /** 
      * Try to go in one direction. If there is an exit, enter
