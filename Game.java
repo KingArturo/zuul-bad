@@ -27,7 +27,7 @@ public class Game
     public Game() 
     {
         parser = new Parser();
-        player = new Player();
+        player = new Player(80);
         createRooms();
     }
 
@@ -53,7 +53,7 @@ public class Game
         habitacion1.addItem("escritorio", "escritorio gri", 16, true);
         bano.addItem("lavabo", "lavabo estropeado", 35, true);
         salonComedor.addItem("sofa", "sofa grande y maron", 80, false);
-        salonComedor.addItem("mesa", "mesa heaxagonal de color burdeos", 30, true);
+        salonComedor.addItem("mesa", "mesa heaxagonal de color burdeos", 60, true);
         garaje.addItem("cache", "coche marron", 500, false);
         jardin.addItem("cortacesped", "corta cesped", 25, true);
         

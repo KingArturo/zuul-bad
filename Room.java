@@ -89,12 +89,11 @@ public class Room
         String text = "Te encuentras ";
         text += getDescription();
         text += "\n" + getExitString();
-        if(!items.isEmpty()){
-            for (Item item : items) {
-                text += "\nVes un " + item.getDescription();
-                text += " , peso " + item.getWeight() + "kg";
-            }            
-        }
+        for (Item item : items) {
+            text += "\nVes un " + item.getDescription();
+            text += " su id es " + item.getId();
+            text += " , peso " + item.getWeight() + "kg";
+        }  
         return text;
     }
 

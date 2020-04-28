@@ -11,11 +11,13 @@ public class Player {
     private Room currentRoom;
     private Stack<Room> previousRoom;
     private ArrayList<Item> items;
+    private int maxWeigth;
 
-    public Player() {
+    public Player(int maxPeso) {
         currentRoom = null;
         previousRoom = new Stack<>();
         items = new ArrayList<>();
+        maxWeigth = maxPeso;
     }
 
     public void setCurrentRoom(Room sala) {
@@ -41,9 +43,6 @@ public class Player {
                 items.add(item);
                 System.out.println("Coges el objeto sin problemas");
                 currentRoom.getItems().remove(item);
-            }
-            else {
-                System.out.println("No esta ese objeto en la sala o no se puede coger");
             }
         }
     }
@@ -169,7 +168,15 @@ public class Player {
         for(Item it : currentRoom.getItems()) {
             if(it.getId().equals(item)) {
                 if(it.canTake()) {
-                    objeto = it;
+                    if( maxWeigth > (it.getWeight() + totalWeigth()) ) {
+                        objeto = it;
+                    }
+                    else {
+                        System.out.println("No puedes llevar tanto peso.");
+                    }
+                }
+                else {
+                    System.out.println("Este objeto no se puede coger.");
                 }                
             }
         }
